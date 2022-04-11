@@ -21,13 +21,6 @@ import NotFound from "./components/Not Found/NotFound";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
 
 export default function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -50,7 +43,11 @@ export default function App() {
     <Router>
       <ScrollWrapper>
         <Navbar />
-        <Elements stripe={loadStripe(stripeApiKey)}>
+        <Elements
+          stripe={loadStripe(
+            "pk_test_51KnTM5SGyxdOZsx68PZCjricVqtFGU0FYniZI8sChTBdqAIvcoFj310KMfoMUrgtF5PAFsZ6QjULamKgXMKe3Q0400BmNggOjM"
+          )}
+        >
           <Routes>
             <Route path="/process/payment" element={<Payment />} />
             <Route path="/" exact element={<Home />} />
