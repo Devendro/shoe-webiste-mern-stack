@@ -10,8 +10,8 @@ const cors = require("cors");
 const path = require("path");
 const PORT = 4000;
 const errorMiddleware = require("./middleware/error");
-const order = require("./routes/orderRoute");
-const payment = require("./routes/paymentRoute");
+const order = require("./Routes/orderRoute");
+const payment = require("./Routes/paymentRoute");
 
 app.use(cors());
 app.use(express.json());
@@ -36,8 +36,8 @@ process.on("uncaughtException", (err) => {
 app.use(express.json());
 app.use("/api/v1/auth/", require("./Routes/auth"));
 app.use("/api/v1", require("./Routes/ProductRoute"));
-app.use("/api/v1", order);
-app.use("/api/v1", payment);
+app.use("/api/v1", require("./Routes/orderRoute"));
+app.use("/api/v1", require("./Routes/paymentRoute"));
 
 // Middleware for Error
 app.use(errorMiddleware);

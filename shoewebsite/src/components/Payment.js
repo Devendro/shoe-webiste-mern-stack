@@ -87,6 +87,7 @@ const Payment = ({ history }) => {
             status: result.paymentIntent.status,
           };
 
+          console.log(order)
           dispatch(createOrder(order));
 
           navigate("/success");

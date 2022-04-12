@@ -18,9 +18,11 @@ import UserProfile from "./components/UserProfile";
 import Shipping from "./components/Shipping";
 import ConfirmOrder from "./components/ConfirmOrder";
 import NotFound from "./components/Not Found/NotFound";
+import MyOrders from "./components/MyOrders";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import OrderSuccess from "./components/OrderSuccess";
 
 export default function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -62,6 +64,8 @@ export default function App() {
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/login/shipping" element={<Shipping />} />
             <Route path="/order/confirm" element={<ConfirmOrder />} />
+            <Route path="/success" element={<OrderSuccess />} />
+            <Route path="/orders" element={<MyOrders />} />
             <Route
               element={
                 window.location.pathname === "/process/payment"

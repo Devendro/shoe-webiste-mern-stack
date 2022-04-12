@@ -2,9 +2,11 @@ import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./myOrders.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, myOrders } from "../../actions/orderAction";
+import { clearErrors, myOrders } from "../actions/orderAction";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import Typography from "@material-ui/core/Typography";
+import LaunchIcon from "@material-ui/icons/Launch";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -52,7 +54,11 @@ const MyOrders = () => {
       type: "number",
       sortable: false,
       renderCell: (params) => {
-        return <Link to={`/order/${params.getValue(params.id, "id")}`}></Link>;
+        return (
+          <Link to={`/order/${params.getValue(params.id, "id")}`}>
+            <LaunchIcon />
+          </Link>
+        );
       },
     },
   ];
@@ -88,6 +94,8 @@ const MyOrders = () => {
           className="myOrdersTable"
           autoHeight
         />
+
+        <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
       </div>
     </Fragment>
   );
