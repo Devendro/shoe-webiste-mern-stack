@@ -7,20 +7,13 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
 // Register a new user
-try {
-  exports.registerUser = async (req, res, next) => {
-    const { name, phone, email, password ,dob} = req.body;
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+  const { name, phone, email, password, dob } = req.body;
 
-    const user = await User.create({ name, phone, email, password,dob });
+  const user = await User.create({ name, phone, email, password, dob });
 
-    sendToken(user, 201, res);
-  };
-} catch (error) {
-  res.status(500).json({
-    success: false,
-    message: error.message,
-  });
-}
+  sendToken(user, 201, res);
+});
 
 // Login User
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
@@ -29,19 +22,19 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   // checking if user has given password and email both
 
   if (!email || !password) {
-    return next(new ErrorHander("Please Enter Email & Password", 400));
+    return next(new Errorhandler("Please Enter Email & Password", 400));
   }
 
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    return next(new ErrorHander("Invalid email or password", 401));
+    return next(new Errorhandler("Invalid email or password", 401));
   }
 
   const isPasswordMatched = await user.comparePassword(password);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHander("Invalid email or password", 401));
+    return next(new Errorhandler("Invalid email or password", 401));
   }
 
   sendToken(user, 200, res);
@@ -108,8 +101,6 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     .update(req.params.token)
     .digest("hex");
 
-  
-
   const user = await User.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() },
@@ -154,11 +145,11 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHander("Old password is incorrect", 400));
+    return next(new Errorhandler("Old password is incorrect", 400));
   }
 
   if (req.body.newPassword !== req.body.confirmPassword) {
-    return next(new ErrorHander("password does not match", 400));
+    return next(new Errorhandler("password does not match", 400));
   }
 
   user.password = req.body.newPassword;

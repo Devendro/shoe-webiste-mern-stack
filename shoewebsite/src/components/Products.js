@@ -9,7 +9,7 @@ export default function Products({ product }) {
       <div className="des">
         <span>{product.brandName}</span>
         <h5>{product.productName}</h5>
-        <h4>{product.price}</h4>
+        <h4>₹ {product.price} /-</h4>
       </div>
       <Link to={`/product/${product._id}`}>
         <i className="fal fa-shopping-cart cart"></i>

@@ -2,6 +2,10 @@ import React, { Fragment, useEffect, useRef } from "react";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
+import EventIcon from "@material-ui/icons/Event";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { Typography } from "@material-ui/core";
 
 import {
   CardNumberElement,
@@ -17,7 +21,7 @@ import { createOrder, clearErrors } from "../actions/orderAction";
 
 const Payment = ({ history }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
@@ -87,7 +91,7 @@ const Payment = ({ history }) => {
             status: result.paymentIntent.status,
           };
 
-          console.log(order)
+          console.log(order);
           dispatch(createOrder(order));
 
           navigate("/success");
@@ -109,17 +113,20 @@ const Payment = ({ history }) => {
       <CheckoutSteps activeStep={2} />
       <div className="paymentContainer">
         <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
-          Card Info
+          <Typography>Card Info</Typography>
           <div>
+            <CreditCardIcon />
+
             <CardNumberElement className="paymentInput" />
           </div>
           <div>
+            <EventIcon />
             <CardExpiryElement className="paymentInput" />
           </div>
           <div>
+            <VpnKeyIcon />
             <CardCvcElement className="paymentInput" />
           </div>
-
           <input
             type="submit"
             value={`Pay - ₹${orderInfo && orderInfo.totalPrice}`}

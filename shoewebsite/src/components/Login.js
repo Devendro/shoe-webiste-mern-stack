@@ -3,17 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { clearErrors, login, register } from "../actions/userAction";
 import { useLocation } from "react-router-dom";
+import BeatLoader from "react-spinners/BeatLoader";
+import { useAlert } from "react-alert";
 
 export default function Login() {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const history = useNavigate();
   const location = useLocation();
-  const { error, loading, isAuthenticated, user } = useSelector(
+  const { error, loading, isAuthenticated,user } = useSelector(
     (state) => state.user
   );
-  const redirect = location.search ? location.search.split('=')[1] : '/userProfile'
+
+  const redirect = location.search
+    ? location.search.split("=")[1]
+    : "/userProfile";
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 export default function Registration() {
+  const alert = useAlert();
   const [details, setdetails] = useState({
     name: "",
     phone: 0,
@@ -13,28 +15,31 @@ export default function Registration() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/api/v1/auth/registration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: details.name,
-        phone: details.phone,
-        email: details.email,
-        password: details.password,
-        dob: details.dob,
-
-      }),
-    });
+    const response = await fetch(
+      "http://localhost:4000/api/v1/auth/registration",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: details.name,
+          phone: details.phone,
+          email: details.email,
+          password: details.password,
+          dob: details.dob,
+        }),
+      }
+    );
     const json = await response.json();
     console.log(json);
     if (json.success) {
       // redirect
       localStorage.setItem("token", json.token);
       history("/");
+      alert.success("Sucessfully Registered");
     } else {
-      alert("invalid credentials");
+      alert.error(json.message);
     }
   };
 

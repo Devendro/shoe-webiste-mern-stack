@@ -1,9 +1,5 @@
 import React from "react";
 import "./style.css";
-import bhavana from "./img/people/1.jpeg";
-import tejas from "./img/people/2.jpeg";
-import sayali from "./img/people/3.jpeg";
-
 export default function Contact() {
   const ulStyle = { border: "0" };
   return (
@@ -67,35 +63,6 @@ export default function Contact() {
           ></textarea>
           <button className="normal">Submit</button>
         </form>
-
-        <div className="people">
-          <div>
-            <img src={bhavana} alt="" />
-            <p>
-              <span>Bhavana Kambaty</span>Senior Marketing Manager <br /> Phone:
-              +91 8760951294 <br />
-              Email: bhavanak@gmail.com
-            </p>
-          </div>
-
-          <div>
-            <img src={tejas} alt="" />
-            <p>
-              <span>Tejas Kale</span>Senior Marketing Manager <br /> Phone: +91
-              2036539718 <br />
-              Email: ktejas@gmail.com
-            </p>
-          </div>
-
-          <div>
-            <img src={sayali} alt="" />
-            <p>
-              <span>Sayali Kadam</span>Senior Marketing Manager <br /> Phone:
-              +91 9581028453 <br />
-              Email: sayalik123@gmail.com
-            </p>
-          </div>
-        </div>
       </section>
     </>
   );

@@ -2,12 +2,15 @@ import React, { Fragment } from "react";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector } from "react-redux";
 import "./ConfirmOrder.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
-const ConfirmOrder = ({ history }) => {
+const ConfirmOrder = () => {
+  const navigate = useNavigate();
+
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const navigate = useNavigate();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -41,7 +44,7 @@ const ConfirmOrder = ({ history }) => {
       <div className="confirmOrderPage">
         <div>
           <div className="confirmshippingArea">
-            Shipping Info
+            <Typography>Shipping Info</Typography>
             <div className="confirmshippingAreaBox">
               <div>
                 <p>Name:</p>
@@ -58,7 +61,7 @@ const ConfirmOrder = ({ history }) => {
             </div>
           </div>
           <div className="confirmCartItems">
-            Your Cart Items:
+            <Typography>Your Cart Items:</Typography>
             <div className="confirmCartItemsContainer">
               {cartItems &&
                 cartItems.map((item) => (
@@ -79,7 +82,7 @@ const ConfirmOrder = ({ history }) => {
         {/*  */}
         <div>
           <div className="orderSummary">
-            Order Summery
+            <Typography>Order Summery</Typography>
             <div>
               <div>
                 <p>Subtotal:</p>
@@ -94,13 +97,15 @@ const ConfirmOrder = ({ history }) => {
                 <span>₹{tax}</span>
               </div>
             </div>
+
             <div className="orderSummaryTotal">
               <p>
                 <b>Total:</b>
               </p>
               <span>₹{totalPrice}</span>
             </div>
-            <button onClick={proceedToPayment}>Proceed To Payment</button>
+
+            <button onClick={proceedToPayment} >Proceed To Payment</button>
           </div>
         </div>
       </div>

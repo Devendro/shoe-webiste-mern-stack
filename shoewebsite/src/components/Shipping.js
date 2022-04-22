@@ -2,14 +2,22 @@ import React, { Fragment, useState } from "react";
 import "./Shipping.css";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../actions/cartAction";
+import PinDropIcon from "@material-ui/icons/PinDrop";
+import HomeIcon from "@material-ui/icons/Home";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import PublicIcon from "@material-ui/icons/Public";
+import PhoneIcon from "@material-ui/icons/Phone";
+import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
 import { Country, State } from "country-state-city";
+import { useAlert } from "react-alert";
 import CheckoutSteps from "./CheckoutSteps";
 import { useNavigate } from "react-router-dom";
 
 const Shipping = () => {
-  const dispatch = useDispatch();
-  const { shippingInfo } = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const { shippingInfo } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState(shippingInfo.address);
   const [city, setCity] = useState(shippingInfo.city);
@@ -22,6 +30,7 @@ const Shipping = () => {
     e.preventDefault();
 
     if (phoneNo.length < 10 || phoneNo.length > 10) {
+      alert.error("Phone Number should be 10 digits Long");
       return;
     }
     dispatch(
@@ -44,6 +53,7 @@ const Shipping = () => {
             onSubmit={shippingSubmit}
           >
             <div>
+              <HomeIcon />
               <input
                 type="text"
                 placeholder="Address"
@@ -54,6 +64,7 @@ const Shipping = () => {
             </div>
 
             <div>
+              <LocationCityIcon />
               <input
                 type="text"
                 placeholder="City"
@@ -64,6 +75,7 @@ const Shipping = () => {
             </div>
 
             <div>
+              <PinDropIcon />
               <input
                 type="number"
                 placeholder="Pin Code"
@@ -74,6 +86,7 @@ const Shipping = () => {
             </div>
 
             <div>
+              <PhoneIcon />
               <input
                 type="number"
                 placeholder="Phone Number"
@@ -85,6 +98,8 @@ const Shipping = () => {
             </div>
 
             <div>
+              <PublicIcon />
+
               <select
                 required
                 value={country}
@@ -102,6 +117,8 @@ const Shipping = () => {
 
             {country && (
               <div>
+                <TransferWithinAStationIcon />
+
                 <select
                   required
                   value={state}
@@ -121,7 +138,7 @@ const Shipping = () => {
             <input
               type="submit"
               value="Continue"
-              className="shippingBtn"
+              className="shippingBtn btn btn-success"
               disabled={state ? false : true}
             />
           </form>
