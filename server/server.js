@@ -34,7 +34,7 @@ process.on("uncaughtException", (err) => {
 });
 
 app.use(express.json());
-app.use("/api/v1/auth/", require("./Routes/auth"));
+app.use("/api/v1/auth", require("./Routes/auth"));
 app.use("/api/v1", require("./Routes/ProductRoute"));
 app.use("/api/v1", require("./Routes/orderRoute"));
 app.use("/api/v1", require("./Routes/paymentRoute"));
@@ -51,8 +51,8 @@ process.on("unhandledRejection", (err) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, "../shoewebsite/build")));
-// Available routes
+app.use(express.static(path.join(__dirname, "./shoewebsite/build")));
+
 app.get("*", (req, res) => {
-  res.send("hello");
+  res.sendFile(path.resolve(__dirname, "./shoewebsite/build/index.html"));
 });

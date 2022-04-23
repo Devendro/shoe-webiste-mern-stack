@@ -19,12 +19,18 @@ import Shipping from "./components/Shipping";
 import ConfirmOrder from "./components/ConfirmOrder";
 import NotFound from "./components/Not Found/NotFound";
 import MyOrders from "./components/MyOrders";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import OrderSuccess from "./components/OrderSuccess";
+import store from "./store";
+import { loadUser } from "./actions/userAction";
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, [dispatch]);
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -37,9 +43,7 @@ export default function App() {
     setStripeApiKey(data.stripeApiKey);
   }
 
-  useEffect(() => {
-    getStripeApiKey();
-  }, []);
+  
 
   return (
     <Router>

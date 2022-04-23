@@ -16,7 +16,7 @@ export default function Registration() {
   const submitHandler = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "http://localhost:4000/api/v1/auth/registration",
+      "http://localhost:4000/api/v1/registration",
       {
         method: "POST",
         headers: {

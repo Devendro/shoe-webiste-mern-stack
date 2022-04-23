@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 import videos from "./img/about/1.mp4";
@@ -10,6 +10,9 @@ import f4 from "./img/features/f4.jpeg";
 import f6 from "./img/features/f6.jpeg";
 
 export default function About() {
+  useEffect(() => {
+    console.log("hello");
+  }, []);
   return (
     <div>
       <section id="page-header" className="about-header">
@@ -55,8 +58,15 @@ export default function About() {
       </section>
 
       <section id="about-app" className="section-p1s">
-        <h1 style={{color:"#fff",border:"1px solid black",padding:"15px",margin:"0px 20rem",borderRadius:"5rem"}}>
-
+        <h1
+          style={{
+            color: "#fff",
+            border: "1px solid black",
+            padding: "15px",
+            margin: "0px 20rem",
+            borderRadius: "5rem",
+          }}
+        >
           CHECKOUT OUR COLLECTION
         </h1>
         <div className="video">
