@@ -32,8 +32,9 @@ export const createOrder = (order) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post("api/v1/order/new", order, config);
-
+    console.log(order)
+    const { data } = await axios.post("http://localhost:4000/api/v1/order/new", order, config);
+    console.log(data);
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -85,11 +86,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.put(
-      `api/v1/admin/order/${id}`,
-      order,
-      config
-    );
+    const { data } = await axios.put(`api/v1/admin/order/${id}`, order, config);
 
     dispatch({ type: UPDATE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {

@@ -8,7 +8,7 @@ const app = express();
 const router = express.Router();
 const cors = require("cors");
 const path = require("path");
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const errorMiddleware = require("./middleware/error");
 const order = require("./Routes/orderRoute");
 const payment = require("./Routes/paymentRoute");
@@ -51,8 +51,10 @@ process.on("unhandledRejection", (err) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, "./shoewebsite/build")));
-
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./shoewebsite/build/index.html"));
 });
+
+if ((process.env.NODE_ENV = "production")) {
+  app.use(express.static(path.join(__dirname, "./shoewebsite/build")));
+}
