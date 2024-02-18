@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
 
         <div className="copyright">
-          <p>&copy; 2022 - Bhavana Sayali Tejas</p>
+          <p>&copy; 2022 - All Rights Reserved</p>
         </div>
       </footer>
     </>
