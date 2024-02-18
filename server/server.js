@@ -8,10 +8,10 @@ const app = express();
 const router = express.Router();
 const cors = require("cors");
 const path = require("path");
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 const errorMiddleware = require("./middleware/error");
-const order = require("./Routes/orderRoute");
-const payment = require("./Routes/paymentRoute");
+const order = require("./routes/orderRoute");
+const payment = require("./routes/paymentRoute");
 
 app.use(cors());
 app.use(express.json());
@@ -34,10 +34,10 @@ process.on("uncaughtException", (err) => {
 });
 
 app.use(express.json());
-app.use("/api/v1/auth", require("./Routes/auth"));
+app.use("/api/v1/auth/", require("./Routes/auth"));
 app.use("/api/v1", require("./Routes/ProductRoute"));
-app.use("/api/v1", require("./Routes/orderRoute"));
-app.use("/api/v1", require("./Routes/paymentRoute"));
+app.use("/api/v1", order);
+app.use("/api/v1", payment);
 
 // Middleware for Error
 app.use(errorMiddleware);
@@ -51,10 +51,8 @@ process.on("unhandledRejection", (err) => {
   });
 });
 
+app.use(express.static(path.join(__dirname, "../shoewebsite/build")));
+// Available routes
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./shoewebsite/build/index.html"));
+  res.send("hello");
 });
-
-if ((process.env.NODE_ENV = "production")) {
-  app.use(express.static(path.join(__dirname, "./shoewebsite/build")));
-}
